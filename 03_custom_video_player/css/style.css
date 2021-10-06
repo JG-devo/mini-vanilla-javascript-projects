@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url(progress.css);
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Questrial', sans-serif;
+  background-color: #555;
+
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+*:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #666;
+}
+
+h1 {
+  color: #fff;
+  font-size: 4rem;
+  margin-bottom: 2.4rem;
+}
+
+.screen {
+  cursor: pointer;
+  width: 50%;
+  height: 60%;
+  background-color: #000;
+
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #333;
+  color: #fff;
+  width: 50%;
+  padding: 1.5rem 2.4rem;
+  border-bottom-left-radius: 0.8rem;
+  border-bottom-right-radius: 0.8rem;
+
+  font-size: 1.6rem;
+}
+
+.controls .progress {
+  margin: auto 2rem;
+}
+
+.control-btns {
+  color: #fff;
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.controls .btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.controls .hidden {
+  display: none;
+}
