@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.scss" />
+    <script defer src="./controller.js"></script>
+    <title>Account Creator</title>
+  </head>
+  <body>
+    <div class="page__container">
+      <div class="form__container">
+        <form action="" class="form" id="form">
+          <h2>Account Creator</h2>
+          <div class="form__control">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="Username"
+              id="username"
+              placeholder="Enter Username"
+            />
+            <small>Error message</small>
+          </div>
+          <div class="form__control">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="Email"
+              id="email"
+              placeholder="Enter Email"
+            />
+            <small>Error message</small>
+          </div>
+          <div class="form__control">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="Password"
+              id="password"
+              placeholder="Enter Password"
+            />
+            <small>Error message</small>
+          </div>
+          <div class="form__control">
+            <label for="password-confirm">Confirm Password</label>
+            <input
+              type="password"
+              name="Confirmed Password"
+              id="password-confirm"
+              placeholder="Enter Password Again"
+            />
+            <small>Error message</small>
+          </div>
+          <button class="btn" href="#">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

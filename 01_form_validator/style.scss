@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap");
+
+$page-background: #374151;
+$form-background: #e5e7eb;
+$grey: #4b5563;
+$light-grey: #9ca3af;
+
+$success: #6ee7b7;
+$error: #ef4444;
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+*:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem $light-grey;
+}
+
+.page__container {
+  background-color: $page-background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form__container {
+  height: auto;
+  width: 30%;
+  background-color: $form-background;
+  border-radius: 0.5rem;
+  box-shadow: 0 1.6rem 3.2rem darken($page-background, 5%);
+}
+
+.form {
+  padding: 5rem 6rem;
+
+  & h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1.6rem;
+    text-align: center;
+    color: darken($page-background, 10%);
+  }
+
+  &__control {
+    margin-bottom: 3.8rem;
+    position: relative;
+    transition: all 0.3s ease-in;
+
+    & label {
+      display: block;
+      color: $grey;
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    & input {
+      display: block;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 1.2rem 0.8rem;
+      width: 100%;
+      font-size: 1.6rem;
+      transition: all 0.6s ease-in;
+    }
+
+    &--success input {
+      box-shadow: 0 0 0 0.2rem $success;
+    }
+
+    &--error input {
+      box-shadow: 0 0 0 0.2rem $error;
+    }
+
+    & small {
+      position: absolute;
+      bottom: -2.4rem;
+      left: 0.8rem;
+      color: $error;
+      font-size: 1.4rem;
+
+      visibility: hidden; // Won't collapse whereas display none collapses
+    }
+
+    &--error small {
+      visibility: visible;
+    }
+  }
+}
+
+.btn {
+  cursor: pointer;
+  padding: 1.2rem 4.6rem;
+  text-transform: uppercase;
+  display: block;
+  margin: 5rem auto 0 auto;
+  width: 50%;
+  font-size: 1.8rem;
+  font-weight: 300;
+  background-color: $grey;
+  color: $form-background;
+  border: none;
+  border-radius: 0.2rem;
+
+  &:hover {
+    background-color: $page-background;
+  }
+}
+
+// 1296px
+@media (max-width: 81rem) {
+  .form__container {
+    width: 40%;
+  }
+}
+
+@media (max-width: 59rem) {
+  .form__container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 39rem) {
+  .form__container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 29rem) {
+  .form__container {
+    width: 90%;
+  }
+
+  .form {
+    padding: 3rem 6rem;
+  }
+}
