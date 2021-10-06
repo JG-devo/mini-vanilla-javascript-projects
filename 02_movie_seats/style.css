@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+:root {
+  --background-color: #374151;
+  --text-color: #f9fafb;
+  --gradient-dark: #4b5563;
+  --gradient-light: #6b7280;
+  --showcase-bg: #4b5563;
+  --seat: #6b7280;
+  --seat-selected: #93c5fd;
+  --seat-occupied: #f9fafb;
+}
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.6rem;
+}
+
+.section__container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.screen__container {
+  perspective: 150rem;
+  margin-bottom: 3rem;
+}
+
+.movie__container {
+  margin-bottom: 2rem;
+}
+
+.movie__container select {
+  background-color: var(--text-color);
+  border: 0;
+  border-radius: 0.3rem;
+  font-size: 2.4rem;
+  color: var(--text-color);
+  margin-left: 2rem;
+  padding: 0.5rem 6rem 0.5rem 1.5rem;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to top, var(--gradient-dark) 0%, var(--gradient-light) 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
+}
+
+.movie__container label {
+  font-size: 2.4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+}
+
+.showcase__seat,
+.seat__position {
+  background-color: var(--seat);
+  height: 3.2rem;
+  width: 3.5rem;
+  margin: 0.6rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.showcase__seat.seat__selected,
+.seat__position.seat__selected {
+  background-color: var(--seat-selected);
+}
+
+.showcase__seat.seat__occupied,
+.seat__position.seat__occupied {
+  background-color: var(--seat-occupied);
+}
+
+.seat__position:nth-of-type(2) {
+  margin-right: 4rem;
+}
+
+.seat__position:nth-last-of-type(2) {
+  margin-left: 4rem;
+}
+
+.seat__position:not(.seat__occupied):hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.seat__row {
+  display: flex;
+}
+
+.showcase__legend {
+  display: flex;
+  background-color: var(--showcase-bg);
+  padding: 1.6rem 1.8rem;
+  margin: 1.6rem 0 3.2rem 0;
+  border-radius: 0.3rem;
+  list-style-type: none;
+  justify-content: space-between;
+}
+
+.showcase__legend li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2rem;
+}
+
+.showcase__legend li small {
+  display: block;
+  margin-left: 0.8rem;
+}
+
+.screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--text-color);
+  width: 100%;
+  height: 15rem;
+  margin-bottom: 1.6rem;
+  box-shadow: 0 0.5rem 0.8rem var(--text-color);
+  transform: rotateX(-45deg);
+}
+
+.screen__container h2 {
+  color: var(--background-color);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.checkout__text {
+  font-size: 2.4rem;
+}
+
+.checkout__text span {
+  color: var(--seat-selected);
+}
+
+.hidden {
+  visibility: hidden;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="mvc.js"></script>
+    <title>Movie Seat Booking</title>
+  </head>
+  <body>
+    <div class="section__container">
+      <div class="movie__container">
+        <label>Pick a movie:</label>
+        <select id="movie">
+          <option value="0">Choose Option</option>
+          <option value="10">Avengers Endgame ($10)</option>
+          <option value="12">Joker ($12)</option>
+          <option value="8">Toy Story ($8)</option>
+          <option value="9">The Lion King ($9)</option>
+        </select>
+      </div>
+
+      <ul class="showcase__legend hidden">
+        <li>
+          <div class="showcase__seat"></div>
+          <small>N/A</small>
+        </li>
+        <li>
+          <div class="showcase__seat seat__selected"></div>
+          <small>Selected</small>
+        </li>
+        <li>
+          <div class="showcase__seat seat__occupied"></div>
+          <small>Occupied</small>
+        </li>
+      </ul>
+
+      <div class="screen__container hidden">
+        <div class="screen">
+          <h2>Nu Cinema Presents</h2>
+        </div>
+
+        <div class="seat__row">
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+        </div>
+        <div class="seat__row">
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+        </div>
+        <div class="seat__row">
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position seat__occupied"></div>
+        </div>
+        <div class="seat__row">
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+        </div>
+        <div class="seat__row">
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+        </div>
+        <div class="seat__row">
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position seat__occupied"></div>
+          <div class="seat__position"></div>
+          <div class="seat__position"></div>
+        </div>
+      </div>
+
+      <p class="checkout__text hidden">
+        You have selected <span id="checkout__text--count">0</span> seats for a
+        price of $<span id="checkout__text--total">0</span>
+      </p>
+    </div>
+  </body>
+</html>
