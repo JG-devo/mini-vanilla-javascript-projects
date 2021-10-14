@@ -1,55 +1,122 @@
-const currencyEl1 = document.getElementById('currency-one');
-const amountEl1 = document.getElementById('amount-one');
-const currencyEl2 = document.getElementById('currency-two');
-const amountEl2 = document.getElementById('amount-two');
-const rateEl = document.querySelector('.rate');
-const swapBtn = document.getElementById('swap');
-
-const getJSON = async function () {
-  try {
-    const api = await fetch('https://open.exchangerate-api.com/v6/latest');
-    return await api.json();
-  } catch (err) {
-    console.log(err);
+class Model {
+  timeout(s) {
+    return new Promise(function (_, reject) {
+      setTimeout(function () {
+        reject(new Error(`Request took too long! Timeout after ${s} seconds`));
+      }, s * 1000);
+    });
   }
-};
 
-const renderSelection = async function () {
-  const data = await getJSON();
+  getJSON = async function () {
+    try {
+      const api = fetch('https://open.exchangerate-api.com/v6/latest');
+      const res = await Promise.race([api, this.timeout(5)]);
+      const data = await res.json();
+      const { rates } = data;
+      return rates;
+    } catch (err) {
+      throw err;
+    }
+  };
+}
 
-  Object.keys(data.rates).map(data => {
-    currencyEl1.insertAdjacentHTML(
-      'afterbegin',
-      `<option value="${data}">${data}</option>`
+class View {
+  swapBtn = document.getElementById('swap');
+  currencyEl1 = document.getElementById('currency-one');
+  amountEl1 = document.getElementById('amount-one');
+  currencyEl2 = document.getElementById('currency-two');
+  amountEl2 = document.getElementById('amount-two');
+  rateEl = document.querySelector('.rate');
+
+  calculate(data) {
+    const currencyOne = this.currencyEl1.value;
+    const currencyTwo = this.currencyEl2.value;
+
+    const rate = data[currencyTwo] / data[currencyOne];
+    this.rateEl.innerText = `1 ${currencyOne} = ${rate.toFixed(
+      2
+    )} ${currencyTwo}`;
+    this.amountEl2.value = (this.amountEl1.value * rate).toFixed(2);
+  }
+
+  renderSelection(data) {
+    Object.keys(data).map(data => {
+      this.currencyEl1.insertAdjacentHTML(
+        'afterbegin',
+        `<option value="${data}">${data}</option>`
+      );
+      this.currencyEl2.insertAdjacentHTML(
+        'afterbegin',
+        `<option value="${data}">${data}</option>`
+      );
+    });
+  }
+
+  swap(data) {
+    [this.currencyEl1.value, this.currencyEl2.value] = [
+      this.currencyEl2.value,
+      this.currencyEl1.value,
+    ];
+
+    // const temp = this.currencyEl1.value;
+    // this.currencyEl1.value = this.currencyEl2.value;
+    // this.currencyEl2.value = temp;
+    this.calculate(data);
+  }
+
+  bindSwapBtn(handler) {
+    this.swapBtn.addEventListener('click', handler);
+  }
+
+  bindCurrencyBtn(handler) {
+    [this.currencyEl1, this.currencyEl2].forEach(target =>
+      target.addEventListener('change', handler)
     );
-    currencyEl2.insertAdjacentHTML(
-      'afterbegin',
-      `<option value="${data}">${data}</option>`
+  }
+
+  bindAmountInput(handler) {
+    [this.amountEl1, this.amountEl2].forEach(target =>
+      target.addEventListener('input', handler)
     );
-  });
-};
+  }
+}
 
-const calculate = async function () {
-  const data = await getJSON();
-  const currencyOne = currencyEl1.value;
-  const currencyTwo = currencyEl2.value;
+class Controller {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+    this.loadRenderSelection();
+    this.view.bindCurrencyBtn(this.controlCalculate.bind(this));
+    this.view.bindAmountInput(this.controlCalculate.bind(this));
+    this.view.bindSwapBtn(this.handleSwapBtn.bind(this));
+  }
 
-  const rate = data.rates[currencyOne] / data.rates[currencyTwo];
-  rateEl.innerText = `1 ${currencyOne} = ${rate.toFixed(2)} ${currencyTwo}`;
-  amountEl2.value = (amountEl1.value * rate).toFixed(2);
-};
+  controlCalculate = async function () {
+    try {
+      const data = await this.model.getJSON();
+      this.view.calculate(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-const swap = function () {
-  const temp = currencyEl1.value;
-  currencyEl1.value = currencyEl2.value;
-  currencyEl2.value = temp;
-  calculate();
-};
+  loadRenderSelection = async function () {
+    try {
+      const data = await this.model.getJSON();
+      this.view.renderSelection(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-renderSelection();
+  handleSwapBtn = async function () {
+    try {
+      const data = await this.model.getJSON();
+      this.view.swap(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+}
 
-currencyEl1.addEventListener('change', calculate);
-currencyEl2.addEventListener('change', calculate);
-amountEl1.addEventListener('input', calculate);
-amountEl2.addEventListener('input', calculate);
-swapBtn.addEventListener('click', swap);
+const app = new Controller(new Model(), new View());
