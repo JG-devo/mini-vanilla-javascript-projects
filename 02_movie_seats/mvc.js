@@ -1,13 +1,25 @@
 'use strict';
 
 class Model {
-  setMovieData(movieIndex, moviePrice) {
+  setMovieData(selectedSeats, movieIndex = false, moviePrice = false) {
+    localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+
+    if (!movieIndex) return;
     localStorage.setItem('selectedMovieIndex', movieIndex);
+    if (!moviePrice) return;
     localStorage.setItem('selectedMoviePrice', moviePrice);
   }
 
-  selectedSeats(index) {
-    localStorage.setItem('selectedSeats', JSON.stringify(index));
+  getMovieData() {
+    const seats = JSON.parse(localStorage.getItem('selectedSeats'));
+    const index = localStorage.getItem('selectedMovieIndex');
+    const price = localStorage.getItem('selectedMoviePrice');
+
+    return {
+      seats: seats,
+      index: +index,
+      price: +price,
+    };
   }
 }
 
@@ -18,6 +30,7 @@ class View {
   unoccupiedSeats = document.querySelectorAll(
     '.seat__row .seat__position:not(.seat__occupied)'
   );
+
   count = document.querySelector('#checkout__text--count');
   total = document.querySelector('#checkout__text--total');
 
@@ -25,18 +38,16 @@ class View {
     this.movieSelect = document.querySelector('#movie');
     this.ticketPrice = +this.movieSelect.value;
     this.index = [];
-    this.populateUI();
-    this._seatHandler();
-    this.updateSelectedSeats();
   }
 
-  _seatHandler() {
+  seatHandler(handler) {
     this.screenContainer.addEventListener('click', e => {
       const seat = e.target.classList.contains('seat__position');
       const occupied = e.target.classList.contains('seat__occupied');
 
       if (seat && !occupied) e.target.classList.toggle('seat__selected');
       this.updateSelectedSeats();
+      handler(this.updateSelectedSeats());
     });
   }
 
@@ -54,13 +65,17 @@ class View {
 
   bindSetMovieData(handler) {
     this.movieSelect.addEventListener('change', e => {
-      console.log(e.target.children);
       if (e.target.selectedIndex === 0) this.addHiddenClass();
       if (e.target.selectedIndex > 0) this.removeHiddenClass();
 
       this.ticketPrice = +e.target.value;
-      handler(e.target.selectedIndex, e.target.value);
       this.updateSelectedSeats();
+
+      handler(
+        this.updateSelectedSeats(),
+        e.target.selectedIndex,
+        e.target.value
+      );
     });
   }
 
@@ -73,36 +88,28 @@ class View {
       [...this.unoccupiedSeats].indexOf(seat)
     );
 
-    localStorage.setItem('selectedSeats', JSON.stringify(this.index));
-
     const numSeats = selectedSeats.length;
     this.count.innerText = numSeats;
     this.total.innerText = numSeats * this.ticketPrice;
+
+    return this.index;
   }
 
-  // uploadSelectedSeats(upload) {
-  //   upload(this.index);
-  // }
-
-  populateUI() {
-    const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
-
-    if (selectedSeats !== null && selectedSeats.length > 1)
+  populateUI(data) {
+    if (data.seats !== null && data.seats.length > 1)
       this.unoccupiedSeats.forEach((seat, index) => {
-        if (selectedSeats.indexOf(index) > -1)
+        if (data.seats.indexOf(index) > -1)
           seat.classList.add('seat__selected');
       });
 
-    const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
-
-    if (selectedMovieIndex) {
-      this.movieSelect.selectedIndex = selectedMovieIndex;
+    if (data.index) {
+      this.movieSelect.selectedIndex = data.index;
     }
 
-    if (+selectedMovieIndex === 0) this.addHiddenClass();
+    if (data.index === 0) this.addHiddenClass();
     else this.removeHiddenClass();
 
-    this.ticketPrice = localStorage.getItem('selectedMoviePrice');
+    this.ticketPrice = data.price;
   }
 }
 
@@ -112,16 +119,19 @@ class Controller {
     this.view = view;
 
     this.view.bindSetMovieData(this.handleSetMovieData);
-    // this.view.uploadSelectedSeats(this.handleUploadSelectedSeats);
+
+    this.handleMovieData();
+    this.view.seatHandler(this.handleSetMovieData);
+    this.view.updateSelectedSeats();
   }
 
-  handleSetMovieData = (index, value) => {
-    this.model.setMovieData(index, value);
+  handleSetMovieData = (selectedSeats, movieIndex, moviePrice) => {
+    this.model.setMovieData(selectedSeats, movieIndex, moviePrice);
   };
 
-  // handleUploadSelectedSeats = index => {
-  //   this.model.selectedSeats(index);
-  // };
+  handleMovieData() {
+    this.view.populateUI(this.model.getMovieData());
+  }
 }
 
 const app = new Controller(new Model(), new View());
