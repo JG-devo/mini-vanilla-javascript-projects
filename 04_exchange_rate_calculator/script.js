@@ -41,15 +41,18 @@ class View {
 
   renderSelection(data) {
     Object.keys(data).map(data => {
-      this.currencyEl1.insertAdjacentHTML(
-        'afterbegin',
-        `<option value="${data}">${data}</option>`
-      );
-      this.currencyEl2.insertAdjacentHTML(
-        'afterbegin',
-        `<option value="${data}">${data}</option>`
+      [this.currencyEl1, this.currencyEl2].forEach(el =>
+        el.insertAdjacentHTML(
+          'afterbegin',
+          `<option value="${data}">${data}</option>`
+        )
       );
     });
+
+    if ((this.currencyEl2.value = 'GBP'))
+      this.currencyEl2.setAttribute('selected', true);
+
+    this.calculate(data);
   }
 
   swap(data) {
@@ -58,9 +61,6 @@ class View {
       this.currencyEl1.value,
     ];
 
-    // const temp = this.currencyEl1.value;
-    // this.currencyEl1.value = this.currencyEl2.value;
-    // this.currencyEl2.value = temp;
     this.calculate(data);
   }
 
