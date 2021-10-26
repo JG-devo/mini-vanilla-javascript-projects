@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider Menu and Modal</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/script.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="user" />
+      </div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact Me</a></li>
+      </ul>
+    </nav>
+    <header>
+      <button id="toggle" class="toggle">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon-menu"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+
+      <h1>My Landing Page</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, natus.
+      </p>
+
+      <button class="cta-btn" id="open">Sign Up</button>
+    </header>
+
+    <div class="container">
+      <h2>What is this landing page about?</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+        consequuntur culpa nemo nihil ex ad optio quos earum consectetur
+        distinctio quidem, unde alias, modi provident accusamus temporibus nisi
+        totam dignissimos!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        quaerat, perferendis nemo reprehenderit soluta nam voluptatem vitae
+        aperiam a harum?
+      </p>
+
+      <h2>Tell me more</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laborum
+        atque id tenetur reprehenderit veritatis ratione fugiat vitae
+        perspiciatis eum fuga provident sint, dicta nam. Ducimus, praesentium
+        libero harum veniam architecto voluptatum consequatur nihil quia
+        suscipit, cum atque commodi tempora.
+      </p>
+
+      <h2>Benefits</h2>
+      <ul>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+        <li>Lorem ipsum dolor sit.</li>
+      </ul>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quam
+        voluptatum quasi soluta impedit beatae, voluptate ab aspernatur
+        similique facere minima eos necessitatibus adipisci exercitationem
+        aliquid magnam sapiente optio ratione. Molestias doloremque quibusdam
+        deleniti provident id vel nam blanditiis! Aliquid accusantium delectus a
+        excepturi cum inventore dignissimos libero, sint quibusdam perspiciatis
+        consectetur harum praesentium eveniet quod! Doloremque ipsam, odio sequi
+        in accusantium error cumque alias distinctio fugiat iure quos accusamus!
+      </p>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-container" id="modal">
+      <div class="modal">
+        <button class="close-btn" id="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon-close"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div class="modal-header">
+          <h3>Sign Up</h3>
+        </div>
+        <div class="modal-content">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+            dolor soluta quos quae eveniet molestiae ad praesentium rem,
+            architecto dignissimos!
+          </p>
+          <form class="modal-form">
+            <div>
+              <label for="name">Name</label>
+              <input type="text" id="name" placeholder="Enter Name" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Enter Email" />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div>
+              <label for="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm-password"
+                placeholder="Confirm Password"
+              />
+            </div>
+            <input type="submit" value="Submit" class="submit-btn" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
