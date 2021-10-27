@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap');
+
+:root {
+  --modal-duration: 1s;
+  --primary-color: #6366f1;
+  --primary-color-lighter: #c7d2fe;
+  --secondary-color: #ec4899;
+  --secondary-color-lighter: #f9a8d4;
+  --font-color: #374151;
+  --font-color-white: #fff;
+  --border-color: #9ca3af;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.6rem;
+  color: var(--font-color);
+  font-weight: 400;
+  transition: transform 0.3s ease;
+}
+
+*:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem var(--secondary-color-lighter);
+}
+
+body.show-nav {
+  transform: translateX(20rem);
+}
+
+nav {
+  background-color: var(--primary-color);
+  box-shadow: -0.1rem 0 0.8rem var(--font-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20rem;
+  height: 100vh;
+  z-index: 100;
+  transform: translateX(-100%);
+}
+
+nav .logo {
+  margin: 3rem 0;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+nav .logo img {
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.2rem var(--secondary-color-lighter);
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  margin: 2.8rem;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+nav ul li a:link,
+nav ul li a:visited {
+  color: var(--font-color-white);
+  text-decoration: none;
+}
+
+nav ul li a:hover,
+nav ul li a:active {
+  border-bottom: 0.2rem solid var(--font-color-white);
+  padding-bottom: 0.2rem;
+}
+
+header {
+  position: relative;
+  background-color: var(--primary-color-lighter);
+  padding: 4.8rem 2.4rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 6.4rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 0.8rem;
+}
+
+header p {
+  font-size: 2rem;
+  margin-bottom: 3.2rem;
+}
+
+header .toggle,
+.modal .close-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0.2rem;
+}
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 3.2rem;
+  height: 3.2rem;
+  stroke: var(--font-color);
+}
+
+button,
+input[type='submit'] {
+  font-size: 2rem;
+  color: var(--font-color-white);
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  padding: 1.2rem 2.4rem;
+}
+
+.toggle {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.container {
+  padding: 0 2.4rem;
+  margin: 4.8rem auto;
+  max-width: 100%;
+  width: 80rem;
+}
+
+.container h2 {
+  font-size: 3.8rem;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.container ul {
+  margin-left: 3.2rem;
+  margin-bottom: 2rem;
+}
+
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(0.6rem);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: none;
+}
+
+.show-modal {
+  display: block;
+  animation-name: modalAnimate;
+  animation-duration: var(--modal-duration);
+}
+
+@keyframes modalAnimate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background-color: var(--font-color-white);
+  border-radius: 0.2rem;
+  box-shadow: 0 0 0.1rem var(--font-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  width: 40rem;
+}
+
+.modal-header {
+  background-color: var(--primary-color-lighter);
+  padding: 2rem;
+}
+
+.modal-content {
+  padding: 2rem;
+}
+
+.modal-form div {
+  margin: 1.5rem 0;
+}
+
+.modal-content p {
+  margin-bottom: 3rem;
+}
+
+.modal-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.modal-form .form-input {
+  padding: 0.8rem 0;
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 0.1rem solid var(--border-color);
+}
+
+.form-input:last-child {
+  margin-bottom: 2.4rem;
+}
+
+.modal .close-btn {
+  position: absolute;
+  top: -4rem;
+  right: -4rem;
+}
+
+.modal .close-btn svg {
+  stroke: var(--font-color-white);
+}

@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Slider Menu and Modal</title>
-    <link rel="stylesheet" href="/style.css" />
-    <script src="/script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
   </head>
   <body>
     <nav>
@@ -26,7 +26,7 @@
           xmlns="http://www.w3.org/2000/svg"
           class="icon-menu"
           fill="none"
-          viewBox="0 0 24 24"
+          viewbox="0 0 24 24"
           stroke="currentColor"
         >
           <path
@@ -119,11 +119,21 @@
           <form class="modal-form">
             <div>
               <label for="name">Name</label>
-              <input type="text" id="name" placeholder="Enter Name" />
+              <input
+                type="text"
+                id="name"
+                placeholder="Enter Name"
+                class="form-input"
+              />
             </div>
             <div>
               <label for="email">Email</label>
-              <input type="email" id="email" placeholder="Enter Email" />
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter Email"
+                class="form-input"
+              />
             </div>
             <div>
               <label for="password">Password</label>
@@ -131,6 +141,7 @@
                 type="password"
                 id="password"
                 placeholder="Enter Password"
+                class="form-input"
               />
             </div>
             <div>
@@ -139,6 +150,7 @@
                 type="password"
                 id="confirm-password"
                 placeholder="Confirm Password"
+                class="form-input"
               />
             </div>
             <input type="submit" value="Submit" class="submit-btn" />
