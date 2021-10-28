@@ -56,7 +56,7 @@ const updateWrongLettersEl = function () {
     if (index < errors) {
       part.style.display = 'block';
     } else {
-      part.style.display = 'block';
+      part.style.display = 'none';
     }
   });
 
