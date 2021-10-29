@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <title>HangBug Game</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>The Hanging Bug Game</h1>
+      <p class="container-byline">Find the hidden word - Enter a letter</p>
+      <div class="game-container">
+        <svg class="figure-container" height="250" width="220">
+          <!-- Pole -->
+          <line x1="50" y1="20" x2="140" y2="20" />
+          <line x1="140" y1="20" x2="140" y2="70" />
+          <line x1="50" y1="20" x2="50" y2="230" />
+          <line x1="10" y1="230" x2="90" y2="230" />
+
+          <!-- Head -->
+          <g class="figure-part figure-head">
+            <ellipse cx="140" cy="90" rx="30" ry="20" />
+            <circle class="figure-face" cx="135" cy="85" r="1" />
+            <circle class="figure-face" cx="150" cy="85" r="3" />
+            <line class="figure-face" x1="140" y1="97" x2="147" y2="99" />
+          </g>
+
+          <!-- Left-side Legs -->
+          <polyline class="figure-part" points="110 90, 90 75, 65 95" />
+          <polyline class="figure-part" points="114 80, 90 55, 70 70" />
+          <polyline class="figure-part" points="113 101, 90 95, 70 115" />
+
+          <!-- Right-side Legs -->
+          <polyline class="figure-part" points="168 80, 178 60, 205 70" />
+          <polyline class="figure-part" points="170 90, 182 80, 208 90" />
+          <polyline class="figure-part" points="163 104, 185 95, 205 110" />
+        </svg>
+        <div class="wrong-letters-container" id="wrong-letters">
+          <!-- <p>Wrong</p> -->
+          <!-- <span>e,r,t,e,y</span> -->
+        </div>
+        <div class="word" id="word">
+          <!-- <div class="letter">h</div>
+          <div class="letter">e</div>
+          <div class="letter">l</div>
+          <div class="letter">l</div>
+          <div class="letter">o</div> -->
+        </div>
+      </div>
+
+      <div class="popup-container" id="popup-container">
+        <div class="popup">
+          <h2 id="final-message"></h2>
+          <p class="reveal-word"></p>
+          <button id="play-btn">Play Again</button>
+        </div>
+      </div>
+
+      <div class="notification-container" id="notification-container">
+        <p>You have already entered this letter</p>
+      </div>
+    </div>
+  </body>
+</html>
