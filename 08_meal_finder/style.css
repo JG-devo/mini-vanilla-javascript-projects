@@ -10,6 +10,7 @@
   );
   --font-color: #dbeafe;
   --font-color-hover: #c9e0fe;
+  --font-color-dark: #374151;
   --border-color: #6b7280;
   --box-shadow: rgba(0, 0, 0, 0.31);
   --btn-font-color: #fff;
@@ -299,7 +300,7 @@ input {
 
 .single-meal--section1 li {
   font-size: 1.4rem;
-  color: #374151;
+  color: var(--font-color-dark);
   font-weight: 700;
   text-transform: capitalize;
   padding: 0.5rem 1rem;
@@ -387,6 +388,42 @@ input {
   position: absolute;
   top: -1.2rem;
   right: -1.2rem;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip--text {
+  visibility: hidden;
+  position: absolute;
+  color: var(--font-color-dark);
+  font-weight: 700;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 15rem;
+  background-color: var(--primary-color);
+  text-align: center;
+  padding: 0.8rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.tooltip .tooltip--text::after {
+  content: ' ';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -0.5rem;
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: transparent transparent var(--primary-color) transparent;
+}
+
+.tooltip:hover .tooltip--text {
+  visibility: visible;
 }
 
 /* Media Queries */
