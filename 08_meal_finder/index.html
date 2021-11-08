@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <title>Foodie Finder</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="branding--load" id="branding">
+        <p>🍊</p>
+        <h1>Foodie Finder</h1>
+        <div class="flex">
+          <form action="" class="flex" id="submit">
+            <input type="text" id="search" placeholder="Search for Meals..." />
+            <button class="search-btn" type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="search-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+          </form>
+
+          <button class="random-btn" id="random">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="gift-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+              />
+            </svg>
+          </button>
+
+          <button class="back-btn hidden" id="back-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="back-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="error-container">
+        <div class="render-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="close-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+          <p class="error-text">${error}</p>
+        </div>
+      </div>
+
+      <div id="result-heading" class="result-heading">
+        <h2></h2>
+      </div>
+      <div id="meals" class="meals"></div>
+
+      <div id="single-meal" class="single-meal"></div>
+
+      <!-- <div class="spinner-container">
+        <img src="img/spinner.svg" alt="" />
+      </div> -->
+    </div>
+  </body>
+</html>
