@@ -104,6 +104,7 @@ const displayRecipeResults = async function (searchID) {
 
 const generateSearchResultsMarkup = function (results, searchTerm) {
   removeSpinner();
+  singleMeal.innerHTML = '';
   resultsHeading.innerHTML = `<h2>Here are the results for ${searchTerm}...</h2>`;
   mealsEl.innerHTML = '';
   brandingEl.classList.replace('branding--load', 'branding--results');
@@ -170,12 +171,13 @@ const generateRecipeMarkup = function (recipe) {
 };
 
 const generateYouTubeMarkup = function (videoURL) {
+  const embed = videoURL.replace('watch?v=', 'embed/');
   return `
     <div class="videoWrapper">
       <iframe
         width="720"
         height="381"
-        src="${videoURL}"
+        src="${embed}"
         frameborder="0"
         allow="autoplay; encrypted-media"
         allowfullscreen
