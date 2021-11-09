@@ -89,6 +89,12 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.branding--results a,
+.branding--load a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
 .flex {
   display: flex;
   margin-left: auto;
