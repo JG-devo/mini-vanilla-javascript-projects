@@ -23,7 +23,7 @@ class Model {
 
   async mealSearch(search) {
     try {
-      const query = this._formatSearchQuery(search);
+      const query = this._formatSearchQuery(search.trim());
       if (!query) throw 'Please type your search query first, and try again!';
 
       const res = await fetch(
@@ -59,7 +59,7 @@ class Model {
 
   async createSearchResultsObject(data) {
     try {
-      app.model.state.search.results = await data.meals.map(recipe => {
+      this.state.search.results = await data.meals.map(recipe => {
         return {
           id: +recipe.idMeal,
           title: recipe.strMeal,
@@ -115,7 +115,7 @@ class View {
                 <sub>Cuisine: ${recipe.mealOrigin}</sub>
               </div>`
       );
-      app.view.displayResolvedImage(recipe.image, recipe.id);
+      this.displayResolvedImage(recipe.image, recipe.id);
     });
   }
 
@@ -158,7 +158,10 @@ class View {
   }
 
   generateYouTubeMarkup(videoURL) {
-    const embed = videoURL.replace('watch?v=', 'embed/');
+    const embed = videoURL.replace(
+      'youtube.com/watch?v=',
+      'youtube-nocookie.com/embed/'
+    );
     return `
       <div class="videoWrapper">
         <iframe
@@ -238,13 +241,13 @@ class View {
     });
   }
 
-  bindRandomBtn(handler) {
+  bindRandomBtn(handler, id) {
     this.randomBtn.addEventListener('click', async e => {
       e.preventDefault();
       this.brandingEl.classList.replace('branding--load', 'branding--results');
       this.hideResultElements(this.mealsEl, this.resultsHeading);
       await handler('?random');
-      window.location.hash = app.model.state.recipe.id;
+      window.location.hash = id();
     });
   }
 
@@ -274,10 +277,10 @@ class View {
     });
   }
 
-  bindBackBtn() {
+  bindBackBtn(data) {
     this.backBtn.addEventListener('click', e => {
       e.preventDefault();
-      if (app.model.state.search.results.length === 0) {
+      if (data.results.length === 0) {
         this.brandingEl.classList.replace(
           'branding--results',
           'branding--load'
@@ -286,10 +289,7 @@ class View {
         this.hideResultElements(this.mealsEl, this.resultsHeading, false);
         this.singleMeal.innerHTML = '';
       } else {
-        this.generateSearchResultsMarkup(
-          app.model.state.search.results,
-          app.model.state.search.query
-        );
+        this.generateSearchResultsMarkup(data.results, data.query);
         this.showResultElements(this.mealsEl, this.resultsHeading);
         window.location.hash = '';
         this.singleMeal.innerHTML = '';
@@ -303,10 +303,10 @@ class Controller {
     this.model = model;
     this.view = view;
     this.view.bindSubmitBtn(this.displaySearchResults);
-    this.view.bindRandomBtn(this.displayRecipeResults);
+    this.view.bindRandomBtn(this.displayRecipeResults, this.handleRandomID);
     this.view.bindRecipeLoad(this.displayRecipeResults);
     this.view.bindRecipeClick(this.displayRecipeResults);
-    this.view.bindBackBtn();
+    this.view.bindBackBtn(this.handleBackBtn());
   }
 
   displaySearchResults = async searchTerm => {
@@ -335,6 +335,9 @@ class Controller {
       this.view.renderError(err);
     }
   };
+
+  handleBackBtn = () => this.model.state.search;
+  handleRandomID = () => this.model.state.recipe.id;
 }
 
 const app = new Controller(new Model(), new View());
