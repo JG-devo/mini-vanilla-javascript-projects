@@ -23,13 +23,16 @@ class Model {
 
   async mealSearch(search) {
     try {
-      const query = this._formatSearchQuery(search.trim());
+      const query = this._formatSearchQuery(
+        search === NaN ? search.trim() : search
+      );
       if (!query) throw 'Please type your search query first, and try again!';
 
       const res = await fetch(
         `https://www.themealdb.com/api/json/v1/1/${query}${search}`
       );
       const data = await res.json();
+      if (!data) throw 'No results found. Please try searching again!';
       return data;
     } catch (err) {
       throw err;
@@ -243,15 +246,22 @@ class View {
 
   bindRandomBtn(handler, id) {
     this.randomBtn.addEventListener('click', async e => {
-      e.preventDefault();
-      this.brandingEl.classList.replace('branding--load', 'branding--results');
-      this.hideResultElements(this.mealsEl, this.resultsHeading);
-      await handler('?random');
-      window.location.hash = id();
+      try {
+        e.preventDefault();
+        this.brandingEl.classList.replace(
+          'branding--load',
+          'branding--results'
+        );
+        this.hideResultElements(this.mealsEl, this.resultsHeading);
+        await handler('?random');
+        window.location.hash = id();
+      } catch (err) {
+        this.renderError(err);
+      }
     });
   }
 
-  bindRecipeLoad(handler) {
+  bindRecipeLoad(handler, existingId) {
     ['load', 'hashchange'].forEach(ev =>
       window.addEventListener(ev, () => {
         const id = window.location.hash.slice(1);
@@ -303,8 +313,8 @@ class Controller {
     this.model = model;
     this.view = view;
     this.view.bindSubmitBtn(this.displaySearchResults);
-    this.view.bindRandomBtn(this.displayRecipeResults, this.handleRandomID);
-    this.view.bindRecipeLoad(this.displayRecipeResults);
+    this.view.bindRandomBtn(this.displayRecipeResults, this.handleID);
+    this.view.bindRecipeLoad(this.displayRecipeResults, this.handleID);
     this.view.bindRecipeClick(this.displayRecipeResults);
     this.view.bindBackBtn(this.handleBackBtn());
   }
@@ -337,7 +347,13 @@ class Controller {
   };
 
   handleBackBtn = () => this.model.state.search;
-  handleRandomID = () => this.model.state.recipe.id;
+  handleID = () => this.model.state.recipe.id;
 }
 
 const app = new Controller(new Model(), new View());
+
+// Still to solve:
+
+// hashchange event handler loads recipe twice..
+// browser back btn to capture hash and reload recipe results
+// Multiple space bar entries into search are not trimmed properly
