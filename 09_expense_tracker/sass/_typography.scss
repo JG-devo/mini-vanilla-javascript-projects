@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+h1 {
+  letter-spacing: 1px;
+  font-size: 6rem;
+}
+
+h2 {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: 2rem;
+  border-bottom: 1px solid $color-border;
+  padding-bottom: 1rem;
+}
+
+h4 {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+.balance__money {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  margin: 0.5rem 0;
+
+  &.plus {
+    color: $color-money-plus;
+  }
+
+  &.minus {
+    color: $color-money-minus;
+  }
+}

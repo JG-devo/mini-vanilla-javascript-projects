@@ -1,0 +1,55 @@
+// Color variables
+$color-bg: #f7f7f7;
+$color-border: #bbb;
+$color-white: #fff;
+
+$color-money-plus: #2ecc71;
+$color-money-minus: #c0392b;
+
+$color-btn: #9c88ff;
+$color-delete: #e74c3c;
+
+$color-font: #333;
+
+// Styling variables
+$box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+// Font variables
+$font-primary: 'Lato', sans-serif;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem $color-btn;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  background-color: $color-bg;
+  font-family: $font-primary;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 5rem;
+  width: 35rem;
+}

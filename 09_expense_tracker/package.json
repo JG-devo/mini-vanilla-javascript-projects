@@ -1,0 +1,11 @@
+{
+  "name": "09_expense_tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "watch:sass": "sass --watch sass/main.scss css/style.css"
+  },
+  "author": "JG Devo",
+  "license": "ISC"
+}

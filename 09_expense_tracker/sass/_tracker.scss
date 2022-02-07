@@ -1,0 +1,103 @@
+.balance {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 2rem;
+  margin: 2rem 0 4rem 0;
+  background-color: $color-white;
+  box-shadow: $box-shadow;
+
+  & > div {
+    flex: 1;
+    text-align: center;
+
+    &:first-of-type {
+      border-right: 1px solid $color-border;
+    }
+  }
+}
+
+.form-control {
+  &__label {
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 1rem 0;
+  }
+
+  &__input[type='text'],
+  &__input[type='number'] {
+    border: 1px solid $color-border;
+    border-radius: 2px;
+    display: block;
+
+    font-family: $font-primary;
+    font-size: 1.6rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  &__btn {
+    cursor: pointer;
+    display: block;
+    background-color: $color-btn;
+    box-shadow: $box-shadow;
+    color: $color-white;
+    border: 0;
+    font-size: 1.6rem;
+    margin: 2rem 0 3rem;
+    padding: 1rem;
+    width: 100%;
+  }
+}
+
+.history {
+  &__list {
+    font-size: 1.6rem;
+    list-style-type: none;
+    margin-top: 1rem;
+
+    &--delete {
+      cursor: pointer;
+      background-color: $color-delete;
+      border: 0;
+      color: $color-white;
+      font-size: 2rem;
+      line-height: 2rem;
+      padding: 0.2rem 0.5rem;
+
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-100%, -50%);
+      opacity: 0;
+
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    & li {
+      display: flex;
+      justify-content: space-between;
+
+      background-color: $color-white;
+      box-shadow: $box-shadow;
+      color: $color-font;
+      padding: 1rem;
+      margin: 1rem 0;
+
+      position: relative;
+
+      &.plus {
+        border-right: 0.5rem solid $color-money-plus;
+      }
+
+      &.minus {
+        border-right: 0.5rem solid $color-money-minus;
+      }
+
+      &:hover .history__list--delete {
+        opacity: 1;
+      }
+    }
+  }
+}
