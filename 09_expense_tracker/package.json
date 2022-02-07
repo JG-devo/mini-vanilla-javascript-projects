@@ -2,14 +2,14 @@
   "name": "09_expense_tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "app.js",
   "scripts": {
-    "watch:sass": "sass --watch sass/main.scss css/style.css",
-    "dev:server": "live-server",
+    "watch:sass": "sass --watch public/sass/main.scss public/css/style.css",
+    "dev:server": "nodemon app.js",
     "start": "run-p watch:sass dev:server",
-    "compile:sass": "sass sass/main.scss css/style.comp.css",
-    "prefix:css": "postcss css/style.comp.css --use autoprefixer -o css/style.prefix.css",
-    "compress:css": "sass css/style.prefix.css --style=compressed css/style.css",
+    "compile:sass": "sass public/sass/main.scss public/css/style.comp.css",
+    "prefix:css": "postcss public/css/style.comp.css --use autoprefixer -o public/css/style.prefix.css",
+    "compress:css": "sass public/css/style.prefix.css --style=compressed public/css/style.css",
     "build:css": "npm-run-all compile:sass prefix:css compress:css"
   },
   "browserslist": "last 10 versions",
@@ -21,5 +21,9 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.6",
     "postcss-cli": "^9.1.0"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.2.0"
   }
 }
