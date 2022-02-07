@@ -4,8 +4,22 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "watch:sass": "sass --watch sass/main.scss css/style.css"
+    "watch:sass": "sass --watch sass/main.scss css/style.css",
+    "dev:server": "live-server",
+    "start": "run-p watch:sass dev:server",
+    "compile:sass": "sass sass/main.scss css/style.comp.css",
+    "prefix:css": "postcss css/style.comp.css --use autoprefixer -o css/style.prefix.css",
+    "compress:css": "sass css/style.prefix.css --style=compressed css/style.css",
+    "build:css": "npm-run-all compile:sass prefix:css compress:css"
   },
+  "browserslist": "last 10 versions",
   "author": "JG Devo",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "concat": "^1.0.3",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.6",
+    "postcss-cli": "^9.1.0"
+  }
 }
