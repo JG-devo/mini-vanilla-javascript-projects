@@ -1,0 +1,30 @@
+@mixin label {
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 1rem 0;
+}
+
+@mixin input {
+  border: 1px solid $color-border;
+  border-radius: 2px;
+  display: block;
+
+  font-family: $font-primary;
+  font-size: 1.6rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+@mixin btn {
+  cursor: pointer;
+  display: block;
+  background-color: $color-btn;
+  box-shadow: $box-shadow;
+  color: $color-white;
+  border: 0;
+  font-size: 1.6rem;
+  margin: 2rem 0 3rem;
+  padding: 1rem;
+  width: 100%;
+}

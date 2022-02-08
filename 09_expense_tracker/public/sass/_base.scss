@@ -1,5 +1,6 @@
 // Color variables
 $color-bg: #f7f7f7;
+$color-bg-overlay: #696969;
 $color-border: #bbb;
 $color-white: #fff;
 
@@ -45,6 +46,7 @@ body {
   font-family: $font-primary;
   font-weight: 300;
   line-height: 1.6;
+  position: relative;
 }
 
 .container {

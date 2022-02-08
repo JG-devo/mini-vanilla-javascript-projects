@@ -6,19 +6,69 @@ const expense = document.querySelector('.balance__expense');
 const historyList = document.querySelector('.history__list');
 const form = document.querySelector('.form');
 
-const text = document.getElementById('text');
-const amount = document.getElementById('amount');
+const text = document.querySelector('#text');
+const amount = document.querySelector('#amount');
+
+const loginContainer = document.querySelector('.login');
+const loginForm = document.querySelector('.login-form');
+const overlay = document.querySelector('.overlay');
+const loginName = document.querySelector('#name');
+const loginPassword = document.querySelector('#password');
 
 let transactions = {};
 
-const database = async () => {
+const loadDatabase = async token => {
   try {
-    const { data } = await axios.get('/api/v1/expenses');
-
+    const { data } = await axios.get('api/v1/expenses', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!data.expenses) transactions = [];
     transactions = data.expenses;
+
+    historyList.innerHTML = '';
+    transactions.forEach(item => addTransactionDOM(item));
+    updateValues();
   } catch (error) {
     console.log(error);
+    throw new Error('Login is required');
+  }
+};
+
+const checkLoggedIn = async () => {
+  const token = localStorage.getItem('token');
+  try {
+    await loadDatabase(token);
+    loginContainer.classList.add('hidden');
+    overlay.classList.add('hidden');
+  } catch (error) {
+    localStorage.removeItem('token');
+  }
+};
+
+const login = async e => {
+  e.preventDefault();
+
+  const name = loginName.value;
+  const password = loginPassword.value;
+
+  try {
+    const { data } = await axios.post('/api/v1/auth/login', {
+      name,
+      password,
+    });
+
+    loginName.value = '';
+    loginPassword.value = '';
+
+    localStorage.setItem('token', data.token);
+    await loadDatabase(data.token);
+
+    loginContainer.classList.add('hidden');
+    overlay.classList.add('hidden');
+  } catch (error) {
+    localStorage.removeItem('token');
   }
 };
 
@@ -73,10 +123,19 @@ const addTransaction = async e => {
   addTransactionDOM(transaction);
   updateValues();
   try {
-    await axios.post('/api/v1/expenses', {
-      text: transaction.text,
-      amount: transaction.amount,
-    });
+    const token = localStorage.getItem('token');
+    await axios.post(
+      '/api/v1/expenses',
+      {
+        text: transaction.text,
+        amount: transaction.amount,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   } catch (error) {
     console.log(error);
   }
@@ -95,13 +154,14 @@ const removeTransaction = async id => {
 };
 
 const init = async () => {
-  await database();
-  console.log(transactions);
-  historyList.innerHTML = '';
-  transactions.forEach(item => addTransactionDOM(item));
-  updateValues();
+  try {
+    await checkLoggedIn();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 init();
 
 form.addEventListener('submit', addTransaction);
+loginForm.addEventListener('submit', login);
