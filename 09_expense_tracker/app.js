@@ -4,7 +4,10 @@ require('express-async-errors');
 const express = require('express');
 
 const { connectDB } = require('./db/connect');
+
 const expenseRoutes = require('./routes/expenseRouter');
+const authRoutes = require('./routes/authRouter');
+const { authenticatedUser } = require('./middleware/authentication');
 
 const { notFoundMiddleware } = require('./middleware/not-found');
 const { errorHandlerMiddleware } = require('./middleware/error-handler');
@@ -16,7 +19,8 @@ app.use(express.static('./public'));
 app.use(express.json());
 
 // Routes
-app.use('/api/v1/expenses', expenseRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/expenses', authenticatedUser, expenseRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

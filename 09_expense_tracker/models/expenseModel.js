@@ -13,6 +13,11 @@ const ExpenseSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Must provide an amount'],
     },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true }
 );
