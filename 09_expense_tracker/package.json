@@ -23,7 +23,10 @@
     "postcss-cli": "^9.1.0"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.2.0",
     "mongoose": "^6.2.0"
   }
 }
