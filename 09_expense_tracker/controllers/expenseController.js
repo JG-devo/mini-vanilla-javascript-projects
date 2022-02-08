@@ -1,21 +1,57 @@
+const { StatusCodes } = require('http-status-codes');
+
+const { NotFoundError, BadRequestError } = require('../errors');
 const Expense = require('../models/expenseModel');
 
 exports.getAllExpenses = async (req, res) => {
-  res.json('get all expenses');
+  const expenses = await Expense.find({}).sort('createdAt');
+  res.status(StatusCodes.OK).json({ count: expenses.length, expenses });
 };
 
 exports.getOneExpense = async (req, res) => {
-  res.json('get one expenses');
+  const {
+    params: { id: expenseID },
+  } = req;
+
+  const expense = await Expense.findOne({ _id: expenseID });
+  if (!expense) throw new NotFoundError(`No job with the id: ${expenseID}`);
+
+  res.status(StatusCodes.OK).json({ expense });
 };
 
 exports.createExpense = async (req, res, next) => {
-  res.json('create expense');
+  const expense = await Expense.create(req.body);
+  res.status(StatusCodes.OK).json({ expense });
 };
 
 exports.updateExpense = async (req, res, next) => {
-  res.json('update expense');
+  const {
+    body: { text, amount },
+    params: { id: expenseID },
+  } = req;
+
+  if (!text || !amount)
+    throw new BadRequestError('Position or Company fields cannot be empty');
+
+  if (amount !== Number) throw new BadRequestError('Amount must be a number');
+
+  const expense = await Expense.findOneAndUpdate({ _id: expenseID }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!expense) throw new NotFoundError(`No job with the id: ${expenseID}`);
+
+  res.status(StatusCodes.OK).json({ expense });
 };
 
 exports.deleteExpense = async (req, res, next) => {
-  res.json('delete expense');
+  const {
+    params: { id: expenseID },
+  } = req;
+
+  const expense = await Expense.findOneAndRemove({ _id: expenseID });
+  if (!expense) throw new NotFoundError(`No job with the id: ${expenseID}`);
+
+  res.status(StatusCodes.OK).send();
 };
