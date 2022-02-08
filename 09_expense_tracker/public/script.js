@@ -9,19 +9,18 @@ const form = document.querySelector('.form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
 
-// const dummyTransactions = [
-//   { id: 1, text: 'Flowers', amount: -20 },
-//   { id: 2, text: 'Salary', amount: 300 },
-//   { id: 3, text: 'Book', amount: -10 },
-//   { id: 4, text: 'Camera', amount: 150 },
-// ];
+let transactions = {};
 
-const localStorageTransactions = JSON.parse(
-  localStorage.getItem('transactions')
-);
+const database = async () => {
+  try {
+    const { data } = await axios.get('/api/v1/expenses');
 
-let transactions =
-  localStorageTransactions !== null ? localStorageTransactions : [];
+    if (!data.expenses) transactions = [];
+    transactions = data.expenses;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const addTransactionDOM = transaction => {
   const sign = transaction.amount < 0 ? '-' : '+';
@@ -31,9 +30,9 @@ const addTransactionDOM = transaction => {
       ${transaction.text} <span>$${
     (sign, Math.abs(transaction.amount).toFixed(2))
   }</span>
-      <button class="history__list--delete" onclick="removeTransaction(${
-        transaction.id
-      })">X</button>
+      <button class="history__list--delete" onclick="removeTransaction('${
+        transaction._id
+      }')">X</button>
     </li>`;
 
   historyList.insertAdjacentHTML('beforeend', markup);
@@ -58,37 +57,46 @@ const updateValues = () => {
   expense.innerText = `- $${expenseTotal}`;
 };
 
-const addTransaction = e => {
+const addTransaction = async e => {
   e.preventDefault();
 
   if (text.value.trim() === '' || amount.value.trim() === '')
     return alert('Please add text and an amount');
 
   const transaction = {
-    id: Math.floor(Math.random() * 100000000),
     text: text.value,
     amount: Number(amount.value),
   };
 
-  transactions.push(transaction);
+  console.log(transaction);
+
   addTransactionDOM(transaction);
   updateValues();
-  updateLocalStorage();
+  try {
+    await axios.post('/api/v1/expenses', {
+      text: transaction.text,
+      amount: transaction.amount,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
   text.value = '';
   amount.value = '';
 };
 
-const removeTransaction = id => {
-  transactions = transactions.filter(item => item.id !== id);
-  updateLocalStorage();
-  init();
+const removeTransaction = async id => {
+  try {
+    await axios.delete(`/api/v1/expenses/${id}`);
+    init();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const updateLocalStorage = () => {
-  localStorage.setItem('transactions', JSON.stringify(transactions));
-};
-
-const init = () => {
+const init = async () => {
+  await database();
+  console.log(transactions);
   historyList.innerHTML = '';
   transactions.forEach(item => addTransactionDOM(item));
   updateValues();
