@@ -91,7 +91,8 @@ h4 {
   z-index: 1;
 }
 
-.login {
+.login,
+.update {
   z-index: 5;
   position: absolute;
   top: 50%;
@@ -104,13 +105,20 @@ h4 {
   padding: 5rem;
 }
 
-.login-form__label {
+.login-form__align,
+.update-form__align {
+  display: flex;
+  gap: 2rem;
+}
+.login-form__label,
+.update-form__label {
   display: inline-block;
   font-size: 1.6rem;
   font-weight: 400;
   margin: 1rem 0;
 }
-.login-form__input {
+.login-form__input,
+.update-form__input {
   border: 1px solid #bbb;
   border-radius: 2px;
   display: block;
@@ -119,7 +127,9 @@ h4 {
   padding: 1rem;
   width: 100%;
 }
-.login-form__btn {
+.login-form__btn, .login-form__btn--cancel,
+.update-form__btn,
+.update-form__btn--cancel {
   cursor: pointer;
   display: block;
   background-color: #9c88ff;
@@ -182,8 +192,8 @@ h4 {
   margin-top: 1rem;
 }
 .history__list--delete {
-  cursor: pointer;
   background-color: #e74c3c;
+  cursor: pointer;
   border: 0;
   color: #fff;
   font-size: 2rem;
@@ -192,9 +202,24 @@ h4 {
   position: absolute;
   top: 50%;
   left: 0%;
-  transform: translate(-100%, -50%);
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
+  transform: translate(-100%, -50%);
+}
+.history__list--update {
+  background-color: #3ce759;
+  cursor: pointer;
+  border: 0;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 2rem;
+  padding: 0.2rem 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  transform: translate(-200%, -50%);
 }
 .history__list li {
   display: flex;
@@ -212,7 +237,7 @@ h4 {
 .history__list li.minus {
   border-right: 0.5rem solid #c0392b;
 }
-.history__list li:hover .history__list--delete {
+.history__list li:hover .history__list--delete, .history__list li:hover .history__list--update {
   opacity: 1;
 }
 

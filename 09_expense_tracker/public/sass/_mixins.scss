@@ -28,3 +28,19 @@
   padding: 1rem;
   width: 100%;
 }
+
+@mixin tag-btn {
+  cursor: pointer;
+  border: 0;
+  color: $color-white;
+  font-size: 2rem;
+  line-height: 2rem;
+  padding: 0.2rem 0.5rem;
+
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  opacity: 0;
+
+  transition: opacity 0.4s ease-in-out;
+}

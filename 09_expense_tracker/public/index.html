@@ -13,6 +13,7 @@
   <body>
     <div class="container">
       <h2>Expense Tracker</h2>
+      <h3 class="margin-bottom-big welcome"></h3>
       <h4>Your Balance</h4>
       <h1 class="balance-heading">$0.00</h1>
 
@@ -82,6 +83,29 @@
           <input type="password" class="login-form__input" id="password" />
         </div>
         <button class="login-form__btn">Login</button>
+      </form>
+    </div>
+
+    <!-- Update Modal -->
+    <div class="update hidden">
+      <h3 class="margin-bottom-small">Update Transaction</h3>
+      <form class="update-form">
+        <div class="update-form__control">
+          <label for="update-text" class="update-form__label"
+            >Update Text</label
+          >
+          <input type="text" class="update-form__input" id="update-text" />
+        </div>
+        <div class="update-form__control margin-bottom-small">
+          <label for="update-amount" class="update-form__label"
+            >Update Amount</label
+          >
+          <input type="number" class="update-form__input" id="update-amount" />
+        </div>
+        <div class="update-form__align">
+          <button class="update-form__btn">Update</button>
+          <button class="update-form__btn--cancel">Cancel</button>
+        </div>
       </form>
     </div>
     <div class="overlay"></div>

@@ -12,7 +12,8 @@
   z-index: 1;
 }
 
-.login {
+.login,
+.update {
   z-index: 5;
   position: absolute;
   top: 50%;
@@ -26,7 +27,12 @@
   padding: 5rem;
 }
 
-.login-form {
+.login-form,
+.update-form {
+  &__align {
+    display: flex;
+    gap: 2rem;
+  }
   &__label {
     @include label;
   }
@@ -35,7 +41,8 @@
     @include input;
   }
 
-  &__btn {
+  &__btn,
+  &__btn--cancel {
     @include btn;
   }
 }
