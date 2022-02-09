@@ -1,7 +1,7 @@
 'use strict';
 
 const balance = document.querySelector('.balance-heading');
-const welcome = document.querySelector('.welcome');
+const welcomeText = document.querySelector('.welcome-box__tag');
 const income = document.querySelector('.balance__income');
 const expense = document.querySelector('.balance__expense');
 const historyList = document.querySelector('.history__list');
@@ -22,6 +22,8 @@ const updateForm = document.querySelector('.update-form');
 const updatedAmount = document.querySelector('#update-amount');
 const updatedText = document.querySelector('#update-text');
 
+const logOutBtn = document.querySelector('.welcome-box__btn');
+
 let transactions = {};
 
 const loadDatabase = async token => {
@@ -33,6 +35,8 @@ const loadDatabase = async token => {
     });
     if (!data.expenses) transactions = [];
     transactions = data.expenses;
+
+    welcomeDOM(data.owner);
 
     historyList.innerHTML = '';
     transactions.forEach(item => addTransactionDOM(item));
@@ -77,6 +81,23 @@ const login = async e => {
   } catch (error) {
     localStorage.removeItem('token');
   }
+};
+
+const welcomeDOM = owner => {
+  welcomeText.innerText = `Account: ${owner}`;
+};
+
+const logout = e => {
+  e.preventDefault();
+  localStorage.removeItem('token');
+  transactions = {};
+  historyList.innerHTML = '';
+  balance.innerText = '$0.00';
+  income.innerText = '$0.00';
+  expense.innerText = '$0.00';
+  welcomeText.innerText = 'Logged Out';
+  loginContainer.classList.remove('hidden');
+  overlay.classList.remove('hidden');
 };
 
 const addTransactionDOM = transaction => {
@@ -227,3 +248,4 @@ init();
 
 form.addEventListener('submit', addTransaction);
 loginForm.addEventListener('submit', login);
+logOutBtn.addEventListener('click', logout);

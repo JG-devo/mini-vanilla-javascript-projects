@@ -7,7 +7,9 @@ exports.getAllExpenses = async (req, res) => {
   const expenses = await Expense.find({ createdBy: req.user.userID }).sort(
     'createdAt'
   );
-  res.status(StatusCodes.OK).json({ count: expenses.length, expenses });
+  res
+    .status(StatusCodes.OK)
+    .json({ owner: req.user.name, count: expenses.length, expenses });
 };
 
 exports.getOneExpense = async (req, res) => {

@@ -77,3 +77,24 @@
     }
   }
 }
+
+.welcome-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: $color-font;
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  &__tag {
+    flex: 2;
+    align-self: center;
+  }
+
+  &__btn {
+    flex: 1;
+    @include btn;
+    margin: 0;
+  }
+}
